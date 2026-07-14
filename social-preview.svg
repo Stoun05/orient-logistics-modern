@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">ORIENT Logistics</title>
+  <desc id="desc">International freight and logistics solutions between Europe and Central Asia.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0e201d"/>
+      <stop offset="1" stop-color="#1d5a4e"/>
+    </linearGradient>
+    <linearGradient id="route" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#79ffd3"/>
+      <stop offset="1" stop-color="#ffb367"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0H0V60" fill="none" stroke="#fff" stroke-opacity=".055"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="1040" cy="100" r="250" fill="none" stroke="#79ffd3" stroke-opacity=".1" stroke-width="50"/>
+
+  <g transform="translate(72 74)">
+    <rect width="100" height="100" rx="24" fill="#fff"/>
+    <path d="M20 24h48l20 26-20 26H20l20-26-20-26Z" fill="#153f37" fill-opacity=".12"/>
+    <path d="M25 24h43l20 26-20 26H25l20-26-20-26Z" fill="none" stroke="#153f37" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M45 50h43" stroke="#ffb367" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <text x="196" y="128" fill="#fff" font-family="Arial, sans-serif" font-size="54" font-weight="800">ORIENT</text>
+  <text x="199" y="164" fill="#79ffd3" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="4">LOGISTICS</text>
+
+  <text x="72" y="315" fill="#fff" font-family="Arial, sans-serif" font-size="66" font-weight="800">Halkara logistika</text>
+  <text x="72" y="390" fill="#fff" font-family="Arial, sans-serif" font-size="66" font-weight="800">bir merkezden</text>
+  <text x="75" y="445" fill="#d2e2dc" font-family="Arial, sans-serif" font-size="23">FTL / LTL  •  AOG / OBC  •  ADR  •  Temperatura  •  RFS</text>
+
+  <rect x="72" y="494" width="448" height="62" rx="31" fill="#fff"/>
+  <text x="100" y="534" fill="#153f37" font-family="Arial, sans-serif" font-size="23" font-weight="700">Ýewropa  →  Merkezi Aziýa</text>
+
+  <path d="M650 175C760 105 830 210 900 260s140 65 230-5" fill="none" stroke="url(#route)" stroke-width="7" stroke-linecap="round"/>
+  <g fill="#ffb367" stroke="#fff" stroke-width="3">
+    <circle cx="650" cy="175" r="10"/>
+    <circle cx="900" cy="260" r="10"/>
+    <circle cx="1130" cy="255" r="10"/>
+  </g>
+
+  <g transform="translate(720 420)">
+    <rect width="320" height="100" rx="18" fill="#edf7f4"/>
+    <path d="M320 30h70l50 70H320Z" fill="#d7efe8"/>
+    <path d="M0 90h440v30H0Z" fill="#ffb367"/>
+    <g fill="#0e201d">
+      <circle cx="80" cy="112" r="34"/>
+      <circle cx="370" cy="112" r="34"/>
+    </g>
+    <g fill="#d7efe8">
+      <circle cx="80" cy="112" r="14"/>
+      <circle cx="370" cy="112" r="14"/>
+    </g>
+    <path d="M60 35h175M60 66h115" stroke="#89cdb9" stroke-width="12" stroke-linecap="round"/>
+  </g>
+</svg>

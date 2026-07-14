@@ -20,5 +20,6 @@
   loadScript("config.js")
     .then(() => loadScript("core.js"))
     .then(() => loadScript("phase3.js"))
+    .then(() => loadScript("seo.js"))
     .catch(error => console.error("ORIENT UI load error:", error));
 })();
