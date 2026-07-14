@@ -1,5 +1,5 @@
 (() => {
-  const load = src => new Promise((resolve, reject) => {
+  const loadScript = src => new Promise((resolve, reject) => {
     const script = document.createElement("script");
     script.src = src;
     script.onload = resolve;
@@ -7,9 +7,18 @@
     document.body.appendChild(script);
   });
 
-  load("core.js")
-    .then(() => load("config.js"))
-    .then(() => load("phase2.js"))
-    .then(() => load("phase3.js"))
+  const loadStyle = href => {
+    if (document.querySelector(`link[href="${href}"]`)) return;
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = href;
+    document.head.appendChild(link);
+  };
+
+  loadStyle("phase4.css");
+
+  loadScript("config.js")
+    .then(() => loadScript("core.js"))
+    .then(() => loadScript("phase3.js"))
     .catch(error => console.error("ORIENT UI load error:", error));
 })();

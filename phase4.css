@@ -1,0 +1,20 @@
+/* ORIENT Logistics — Phase 4 live QA fixes */
+.mobile-nav-footer .btn.btn-primary,
+.mobile-nav-footer .btn.btn-primary:hover {
+  color: #ffffff;
+}
+
+@media print {
+  .reveal-ready {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .topbar,
+  .menu-btn,
+  .nav-backdrop,
+  .floating-call,
+  .back-to-top {
+    display: none !important;
+  }
+}
