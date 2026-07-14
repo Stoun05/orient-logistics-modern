@@ -1,0 +1,158 @@
+/* ORIENT Logistics — Phase 3 responsive and multilingual polish */
+.language-switch.language-dropdown {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+.language-trigger {
+  min-width: 82px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.92);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  box-shadow: 0 8px 20px rgba(14,32,29,.05);
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.language-trigger:hover,
+.language-switch.open .language-trigger { border-color: rgba(29,90,78,.35); background: white; box-shadow: 0 10px 26px rgba(14,32,29,.1); }
+.language-trigger svg { width: 10px; transition: transform .2s ease; }
+.language-switch.open .language-trigger svg { transform: rotate(180deg); }
+.language-globe { color: var(--green-2); font-size: 16px; line-height: 1; }
+.language-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 60;
+  width: 218px;
+  max-height: min(430px, calc(100vh - 120px));
+  overflow-y: auto;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,.98);
+  box-shadow: 0 22px 60px rgba(14,32,29,.18);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-8px) scale(.98);
+  transform-origin: top right;
+  transition: opacity .2s ease, visibility .2s ease, transform .2s ease;
+}
+.language-switch.open .language-menu { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0) scale(1); }
+.lang-option {
+  width: 100%;
+  min-height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 11px;
+  border: 0;
+  border-radius: 11px;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  font-size: 13px;
+  font-weight: 750;
+  transition: background .15s ease, color .15s ease;
+}
+.lang-option small { color: var(--muted); font-size: 9px; font-weight: 900; letter-spacing: .12em; }
+.lang-option:hover { background: #f0f5f2; }
+.lang-option.active { background: var(--mint-soft); color: var(--green-2); }
+.lang-option.active small { color: var(--green-2); }
+
+.service-icon svg {
+  width: 25px;
+  height: 25px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.floating-call svg, .back-to-top svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.floating-call span { display: grid; place-items: center; }
+
+:where(a, button, input, select):focus-visible {
+  outline: 3px solid rgba(255,179,103,.72);
+  outline-offset: 3px;
+}
+.section h2, .hero h1, .service-card h3, .faq-question span, .cta-layout h2 { overflow-wrap: anywhere; }
+.btn { text-align: center; }
+input, select, button { touch-action: manipulation; }
+.service-card { contain: layout paint; }
+
+@media (min-width: 1081px) {
+  .nav-actions { flex-shrink: 0; }
+  .nav { gap: clamp(14px, 1.5vw, 26px); }
+  .nav a { white-space: nowrap; }
+}
+
+@media (max-width: 1080px) {
+  .mobile-nav-footer .language-dropdown { justify-self: start; }
+  .mobile-nav-footer .language-menu { left: 0; right: auto; transform-origin: top left; }
+  .nav .mobile-nav-footer { align-items: stretch; }
+}
+
+@media (max-width: 840px) {
+  .hero h1 { font-size: clamp(40px, 8vw, 58px); }
+  .hero-layout { gap: 28px; }
+  .hero-visual { min-height: 455px; }
+  .section { padding-block: 84px; }
+  .footer-grid { gap: 34px 24px; }
+}
+
+@media (max-width: 720px) {
+  .nav-wrap { min-height: 68px; gap: 10px; }
+  .brand { gap: 7px; }
+  .brand-mark { width: 35px; height: 35px; }
+  .menu-btn { width: 42px; height: 42px; }
+  .hero h1 { font-size: clamp(38px, 11vw, 48px); line-height: 1.02; }
+  .hero-copy > p { font-size: 15px; }
+  .trust-row { margin-top: 36px; }
+  .hero-visual { min-height: 385px; }
+  .route-card { padding: 13px 14px; }
+  .route-card strong { font-size: 12px; }
+  .section { padding-block: 72px; }
+  .section-heading h2, .coverage-copy h2, .tracking-copy h2, .quote-info h2, .about-copy h2, .cta-layout h2 { font-size: clamp(33px, 9vw, 42px); }
+  .service-card { padding: 25px; min-height: 270px; }
+  .quote-card, .timeline-card { border-radius: 22px; }
+  .faq-question { min-height: 68px; padding: 16px 18px; font-size: 15px; }
+  .faq-answer > p { padding-inline: 18px; }
+  .faq-item.active .faq-answer > p { padding-bottom: 18px; }
+  .floating-call, .back-to-top { right: 14px; width: 48px; height: 48px; }
+  .floating-call { bottom: 14px; }
+  .back-to-top { bottom: 72px; }
+}
+
+@media (max-width: 480px) {
+  .brand small { letter-spacing: .2em; }
+  .hero-layout { padding-top: 48px; }
+  .hero-status { max-width: 100%; }
+  .trust-row { grid-template-columns: 1fr; }
+  .trust-row > div { display: flex; align-items: baseline; gap: 10px; }
+  .hero-visual { min-height: 330px; }
+  .visual-panel { border-radius: 25px; }
+  .route-card { left: 4px; right: 4px; }
+  .logo-row { font-size: 11px; gap: 12px; }
+  .service-card { min-height: 250px; }
+  .shipment-route { padding: 16px 13px; }
+  .quote-card, .timeline-card { padding: 20px; }
+  .language-menu { width: min(218px, calc(100vw - 40px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .language-menu, .language-trigger svg, .lang-option, .service-icon { transition: none !important; }
+}

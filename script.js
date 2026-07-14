@@ -10,5 +10,6 @@
   load("core.js")
     .then(() => load("config.js"))
     .then(() => load("phase2.js"))
+    .then(() => load("phase3.js"))
     .catch(error => console.error("ORIENT UI load error:", error));
 })();
