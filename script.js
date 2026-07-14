@@ -16,10 +16,12 @@
   };
 
   loadStyle("phase4.css");
+  loadStyle("route-map.css");
 
   loadScript("config.js")
     .then(() => loadScript("core.js"))
     .then(() => loadScript("phase3.js"))
     .then(() => loadScript("seo.js"))
+    .then(() => loadScript("route-map.js"))
     .catch(error => console.error("ORIENT UI load error:", error));
 })();
