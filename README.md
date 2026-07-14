@@ -1,29 +1,41 @@
-# ORIENT Logistics — modern logistics website demo
+# ORIENT Logistics Modern
 
-A polished static logistics website inspired by the structure of European transport companies, but redesigned from scratch.
+Döwrebap, responsive we üç dilli logistika kompaniýasynyň landing sahypasy.
 
-## Included
+## Tehnologiýalar
 
-- Responsive desktop, tablet and mobile layout
-- Turkmen, Russian and English language switch
-- Modern hero section and animated route visualization
-- FTL/LTL, AOG/OBC, ADR, temperature and RFS service cards
-- Shipment tracking demo (`OL-2026-0715`)
-- Interactive transport price estimator
-- Contact form demo
-- Automatic current year in footer
-- No framework required
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- TK / RU / EN dil çalşygy
 
-## Run locally
+## Esasy mümkinçilikler
 
-Open `index.html` directly, or run:
+- halkara logistika hyzmatlary üçin professional baş sahypa
+- mobil we planşet görnüşleri
+- sticky header we aktiw menýu görkezmesi
+- FTL/LTL, AOG/OBC, ADR, temperatura we RFS hyzmat kartlary
+- demo tracking: `OL-2026-0715`
+- dinamiki baha kalkulýatory we jikme-jik hasap
+- FAQ akkordeony
+- scroll animasiýalary
+- ýokara dolanmak we jaň düwmesi
+- telefon, e-mail, ugur we statistika üçin merkezi `config.js`
 
-```bash
-python -m http.server 8080
-```
+## Kompaniýa maglumatlaryny çalyşmak
 
-Then visit `http://localhost:8080`.
+Hakyky telefon, e-mail, ýerleşýän ýer, tracking kody we statistika maglumatlaryny diňe `config.js` faýlynda üýtgetmek ýeterlik.
 
-## Before publishing
+## Faýllar
 
-Replace the demo company name, phone, email, address, statistics and certificate claims. Connect forms and tracking to a real backend/API.
+- `index.html` — sahypanyň gurluşy
+- `styles.css` — esasy dizaýn we responsive görnüş
+- `core.js` — öňki esasy funksional kod
+- `config.js` — kompaniýanyň merkezi maglumatlary
+- `phase2.css` — Phase 2 dizaýn kamilleşdirmeleri
+- `phase2.js` — Phase 2 interaktiwlik
+- `script.js` — modullary yzygiderli ýükleýän loader
+
+## Bellik
+
+Häzirki tracking, baha we aragatnaşyk formasy frontend demo görnüşindedir. Hakyky önümçilik üçin API, e-mail hyzmaty ýa-da CRM birikdirmesi zerurdyr.
