@@ -1,0 +1,24 @@
+{
+  "name": "ORIENT Logistics",
+  "short_name": "ORIENT",
+  "description": "International freight and logistics solutions between Europe and Central Asia.",
+  "lang": "tk",
+  "start_url": "/orient-logistics-modern/",
+  "scope": "/orient-logistics-modern/",
+  "display": "standalone",
+  "background_color": "#0e201d",
+  "theme_color": "#153f37",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
