@@ -3,7 +3,7 @@
   "use strict";
 
   const siteUrl = "https://stoun05.github.io/orient-logistics-modern/";
-  const imageUrl = `${siteUrl}social-preview.png`;
+  const imageUrl = `${siteUrl}social-preview.svg`;
   const seoByLanguage = {
     tk: {
       title: "ORIENT Logistics — Halkara ýük daşamalary",
@@ -97,9 +97,7 @@
     upsertMeta('meta[name="twitter:image"]', { name: "twitter:image", content: imageUrl });
 
     upsertLink("canonical", siteUrl);
-    upsertLink("icon", "favicon.svg", { type: "image/svg+xml" });
-    upsertLink("alternate icon", "favicon-32.png", { type: "image/png", sizes: "32x32" });
-    upsertLink("apple-touch-icon", "apple-touch-icon.png", { sizes: "180x180" });
+    upsertLink("icon", "favicon.svg", { type: "image/svg+xml", sizes: "any" });
     upsertLink("manifest", "site.webmanifest");
   }
 
