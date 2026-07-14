@@ -11,6 +11,7 @@ https://stoun05.github.io/orient-logistics-modern/
 - HTML5
 - CSS3
 - Vanilla JavaScript
+- Leaflet + OpenStreetMap interaktiw kartasy
 - TK / RU / EN / PL / DE / KA / ES / FR dil çalşygy
 - GitHub Pages
 
@@ -24,6 +25,9 @@ https://stoun05.github.io/orient-logistics-modern/
 - emoji ýerine SVG ikonlar
 - demo tracking: `OL-2026-0715`
 - dinamiki baha kalkulýatory we jikme-jik hasap
+- kartadan ýükleniş we gowşuryş nokatlaryny saýlamak
+- takmynan ýol aralygyny we bahany awtomatik täzelemek
+- taýýar demo marşrutlar we nokatlary çalyşmak
 - FAQ akkordeony
 - scroll animasiýalary
 - ýokara dolanmak we jaň düwmesi
@@ -49,6 +53,8 @@ Hakyky telefon, e-mail, ýerleşýän ýer, tracking kody we statistika maglumat
 - `phase3.css` — mobil, dil menýusy we elýeterlilik kamilleşdirmeleri
 - `phase3.js` — 5 täze dil, SVG ikonlar we wizual QA düzedişleri
 - `phase4.css` — hakyky brauzer barlagyndan soňky düzedişler
+- `route-map.css` — karta, marker, marşrut we responsive stiller
+- `route-map.js` — kartadan nokat saýlamak, aralyk we kalkulýator integrasiýasy
 - `seo.js` — favicon, canonical, sosial metadata we gurluşly maglumatlar
 - `favicon.svg` — brauzer ikonasy
 - `social-preview.svg` — paýlaşyş üçin 1200×630 brend suraty
@@ -59,4 +65,4 @@ Hakyky telefon, e-mail, ýerleşýän ýer, tracking kody we statistika maglumat
 
 ## Bellik
 
-Häzirki tracking, baha we aragatnaşyk formasy frontend demo görnüşindedir. Hakyky önümçilik üçin API, e-mail hyzmaty ýa-da CRM birikdirmesi zerurdyr.
+Karta ýol aralygyny geografik aralykdan takmynan hasaplaýar. Hakyky önümçilikde takyk ýol marşruty, tölegli ýollar we serhet geçelgeleri üçin routing API ýa-da backend birikdirmesi gerek. Tracking, baha we aragatnaşyk formasy hem häzirki wagtda frontend demo görnüşindedir.
