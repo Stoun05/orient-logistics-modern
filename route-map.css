@@ -145,7 +145,7 @@
   place-items: center;
   border: 4px solid #ffffff;
   border-radius: 50% 50% 50% 10%;
-  color: #ffffff;
+  color: transparent;
   box-shadow: 0 10px 24px rgba(14, 32, 29, .28);
   font-size: 1rem;
   font-weight: 900;
@@ -155,8 +155,9 @@
 
 .route-marker.start { background: #153f37; }
 .route-marker.end { background: #f08d45; }
-.route-marker.start::after { content: "A"; transform: rotate(45deg); }
-.route-marker.end::after { content: "B"; transform: rotate(45deg); }
+.route-marker::after { color: #ffffff; transform: rotate(45deg); }
+.route-marker.start::after { content: "A"; }
+.route-marker.end::after { content: "B"; }
 
 .route-presets {
   display: flex;
