@@ -17,6 +17,7 @@
 
   loadStyle("phase4.css");
   loadStyle("route-map.css");
+  loadStyle("route-search.css");
 
   loadScript("config.js")
     .then(() => loadScript("core.js"))
