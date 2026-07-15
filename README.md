@@ -15,6 +15,7 @@ https://stoun05.github.io/orient-logistics-modern/
 - Nominatim şäher gözlegi
 - OSRM hakyky awtoulag marşruty
 - Native HTML dialog hyzmat penjireleri
+- Professional ýük we transport baha kalkulýatory
 - TK / RU / EN / PL / DE / KA / ES / FR dil çalşygy
 - GitHub Pages
 
@@ -33,7 +34,6 @@ https://stoun05.github.io/orient-logistics-modern/
 - klawiatura, Escape we mobil bottom-sheet goldawy
 - emoji ýerine SVG ikonlar
 - demo tracking: `OL-2026-0715`
-- dinamiki baha kalkulýatory we jikme-jik hasap
 - şäher ýa-da salgy boýunça ýükleniş/gowşuryş nokadyny gözlemek
 - kartadan A we B nokatlaryny saýlamak
 - hakyky awtoulag ýoluny, ýol aralygyny we wagty görkezmek
@@ -41,6 +41,14 @@ https://stoun05.github.io/orient-logistics-modern/
 - routing elýeterli bolmasa takmynan aralyk bilen fallback
 - 7 günlük geokod gözleg keşi we 1 sorag/sekunt çägi
 - taýýar demo marşrutlar we nokatlary çalyşmak
+- palet/ýer sany we her ýeriň ölçegleri boýunça `m³` göwrümi awtomatik hasaplamak
+- ýükleme senesi we ulag görnüşi: van, tent, MEGA, reefer ýa-da awtomatik saýlaw
+- agram, göwrüm we palet çäklerine görä ulag laýyklygyny barlamak
+- gümrük goldawy we deklarirlenen gymmat boýunça ätiýaçlandyryş goşmaçasy
+- temperatura ýüki üçin min/max režim we sowadyjy ulag barlagy
+- ADR üçin UN belgisi, klass we Packing Group maglumatlary
+- esasy transport, ekspress, ADR, temperatura, gümrük we ätiýaçlandyryş boýunça bahanyň bölünişi
+- sekiz dilde professional forma validasiýasy we düşnükli duýduryşlar
 - FAQ akkordeony
 - scroll animasiýalary
 - ýokara dolanmak we jaň düwmesi
@@ -71,6 +79,8 @@ Hakyky telefon, e-mail, ýerleşýän ýer, tracking kody, statistika we karta h
 - `route-map.js` — şäher gözlegi, kartadan nokat saýlamak, OSRM marşruty we kalkulýator integrasiýasy
 - `service-details.css` — hyzmat dialoglary, mobil bottom-sheet we kalkulýator statusynyň stilleri
 - `service-details.js` — 8 dilli hyzmat maglumatlary, dialog we kalkulýator integrasiýasy
+- `quote-pro.css` — professional ýük formasy, bahanyň bölünişi we responsive stiller
+- `quote-pro.js` — göwrüm, ulag saýlawy, validasiýa we jikme-jik baha hasaby
 - `seo.js` — favicon, canonical, sosial metadata we gurluşly maglumatlar
 - `favicon.svg` — brauzer ikonasy
 - `social-preview.svg` — paýlaşyş üçin 1200×630 brend suraty
@@ -83,4 +93,8 @@ Hakyky telefon, e-mail, ýerleşýän ýer, tracking kody, statistika we karta h
 
 Şäher gözlegi diňe ulanyjy `Gözle` düwmesine basanda ýerine ýetirilýär; autocomplete ýok. Gözlegler ýerli keşde saklanýar we soraglaryň arasynda azyndan 1,1 sekunt goýulýar. Bu demo az ulanyjyly GitHub Pages sahypasy üçin niýetlenendir. Köp ulanyjyly ýa-da kommersiýa önümçilikde geocoding we routing üçin aýratyn tölegli üpjün ediji ýa-da öz backend/proxy hyzmatyňyz gerek.
 
-Tracking, baha we aragatnaşyk formasy häzirki wagtda frontend demo görnüşindedir. Hakyky kommersiýa bahasy logist tarapyndan tassyklanmalydyr.
+## Baha kalkulýatory barada bellik
+
+Kalkulýator ýol, ulag, agram, göwrüm, palet sany, hyzmat görnüşi we goşmaça hyzmatlar boýunça frontend formulasy bilen takmynan aralyk berýär. Bu täjirçilik tarifi däl. Hakyky ýol tölegleri, serhet, gümrük, rugsatlar we bazar nyrhy logist tarapyndan barlanandan soň takyk teklip tassyklanmalydyr.
+
+Tracking we aragatnaşyk formasy hem häzirki wagtda frontend demo görnüşindedir.
