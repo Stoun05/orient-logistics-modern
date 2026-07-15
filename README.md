@@ -14,6 +14,7 @@ https://stoun05.github.io/orient-logistics-modern/
 - Leaflet + OpenStreetMap interaktiw kartasy
 - Nominatim şäher gözlegi
 - OSRM hakyky awtoulag marşruty
+- Native HTML dialog hyzmat penjireleri
 - TK / RU / EN / PL / DE / KA / ES / FR dil çalşygy
 - GitHub Pages
 
@@ -24,6 +25,12 @@ https://stoun05.github.io/orient-logistics-modern/
 - sticky header we aktiw menýu görkezmesi
 - professional açylýan dil menýusy
 - FTL/LTL, AOG/OBC, ADR, temperatura we RFS hyzmat kartlary
+- her hyzmat üçin açylýan giňişleýin professional penjire
+- hyzmatyň amatly ulanylyşy, artykmaçlygy, gerek maglumatlary we möhleti
+- hyzmatdan kalkulýatora bir basyşda geçmek
+- saýlanan hyzmat boýunça ýük görnüşini we tizligini awtomatik sazlamak
+- kalkulýatorda saýlanan hyzmaty görkezýän aýratyn status paneli
+- klawiatura, Escape we mobil bottom-sheet goldawy
 - emoji ýerine SVG ikonlar
 - demo tracking: `OL-2026-0715`
 - dinamiki baha kalkulýatory we jikme-jik hasap
@@ -62,6 +69,8 @@ Hakyky telefon, e-mail, ýerleşýän ýer, tracking kody, statistika we karta h
 - `route-map.css` — esasy karta, marker, marşrut we responsive stiller
 - `route-search.css` — şäher gözlegi, netije sanawy we hakyky routing ýagdaýlary
 - `route-map.js` — şäher gözlegi, kartadan nokat saýlamak, OSRM marşruty we kalkulýator integrasiýasy
+- `service-details.css` — hyzmat dialoglary, mobil bottom-sheet we kalkulýator statusynyň stilleri
+- `service-details.js` — 8 dilli hyzmat maglumatlary, dialog we kalkulýator integrasiýasy
 - `seo.js` — favicon, canonical, sosial metadata we gurluşly maglumatlar
 - `favicon.svg` — brauzer ikonasy
 - `social-preview.svg` — paýlaşyş üçin 1200×630 brend suraty
