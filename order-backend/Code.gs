@@ -1,7 +1,14 @@
 /**
  * ORIENT Logistics — Google Apps Script order intake backend.
- * Required Script Property: SHEET_ID
- * Optional: SHEET_NAME, NOTIFY_EMAIL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+ *
+ * Required Script Property:
+ *   SHEET_ID       Google Sheet file ID
+ *
+ * Optional Script Properties:
+ *   SHEET_NAME     Default: Orders
+ *   NOTIFY_EMAIL   Destination for new-order e-mails
+ *   TELEGRAM_BOT_TOKEN
+ *   TELEGRAM_CHAT_ID
  */
 
 const ORDER_HEADERS = [
@@ -24,16 +31,24 @@ function doPost(e) {
     const payload = parsePayload_(e);
     const order = validateAndNormalize_(payload);
 
-    if (order.website) return jsonOutput_({ ok: true, orderId: order.orderId });
+    if (order.website) {
+      return jsonOutput_({ ok: true, orderId: order.orderId });
+    }
 
     const duplicate = findDuplicate_(order);
-    if (duplicate) return jsonOutput_({ ok: true, duplicate: true, orderId: duplicate });
+    if (duplicate) {
+      return jsonOutput_({ ok: true, duplicate: true, orderId: duplicate });
+    }
+
+    enforceRateLimit_(order);
 
     const lock = LockService.getScriptLock();
     lock.waitLock(10000);
     try {
       const duplicateInsideLock = findDuplicate_(order);
-      if (duplicateInsideLock) return jsonOutput_({ ok: true, duplicate: true, orderId: duplicateInsideLock });
+      if (duplicateInsideLock) {
+        return jsonOutput_({ ok: true, duplicate: true, orderId: duplicateInsideLock });
+      }
       appendOrder_(order);
       rememberOrder_(order);
     } finally {
@@ -66,6 +81,7 @@ function parsePayload_(e) {
     : e && e.parameter && e.parameter.payload
       ? e.parameter.payload
       : '';
+
   if (!raw) throw new Error('Empty request body.');
   try { return JSON.parse(raw); }
   catch (error) { throw new Error('Invalid JSON request body.'); }
@@ -86,6 +102,10 @@ function validateAndNormalize_(payload) {
   if (!client.consent) throw new Error('Consent is required.');
   if (!text_(quote.from, 180) || !text_(quote.to, 180)) throw new Error('Route is required.');
   if (!text_(quote.price, 80)) throw new Error('Calculated price is required.');
+  if (!(number_(quote.distanceKm) > 0)) throw new Error('Distance must be greater than zero.');
+  if (!(number_(quote.weightT) > 0)) throw new Error('Weight must be greater than zero.');
+  if (!(number_(quote.pallets) > 0)) throw new Error('Pallet count must be greater than zero.');
+  if (!text_(quote.loadingDate, 30)) throw new Error('Loading date is required.');
 
   return {
     submittedAt: safeDate_(payload.submittedAt),
@@ -95,13 +115,31 @@ function validateAndNormalize_(payload) {
     source: text_(payload.source, 80),
     pageUrl: text_(payload.pageUrl, 500),
     website: text_(payload.website, 200),
-    client: { company: text_(client.company, 160), name, phone, email },
+    client: {
+      company: text_(client.company, 160),
+      name,
+      phone,
+      email
+    },
     quote: {
-      from: text_(quote.from, 180), to: text_(quote.to, 180), distanceKm: number_(quote.distanceKm), loadingDate: text_(quote.loadingDate, 30),
-      weightT: number_(quote.weightT), pallets: number_(quote.pallets), volumeM3: text_(quote.volumeM3, 40), dimensionsCm: text_(quote.dimensionsCm, 80),
-      cargoType: text_(quote.cargoType, 100), urgency: text_(quote.urgency, 100), vehicle: text_(quote.vehicle, 120), selectedService: text_(quote.selectedService, 120),
-      customs: Boolean(quote.customs), insurance: Boolean(quote.insurance), declaredValue: number_(quote.declaredValue),
-      temperature: quote.temperature || {}, adr: quote.adr || {}, price: text_(quote.price, 80),
+      from: text_(quote.from, 180),
+      to: text_(quote.to, 180),
+      distanceKm: number_(quote.distanceKm),
+      loadingDate: text_(quote.loadingDate, 30),
+      weightT: number_(quote.weightT),
+      pallets: number_(quote.pallets),
+      volumeM3: text_(quote.volumeM3, 40),
+      dimensionsCm: text_(quote.dimensionsCm, 80),
+      cargoType: text_(quote.cargoType, 100),
+      urgency: text_(quote.urgency, 100),
+      vehicle: text_(quote.vehicle, 120),
+      selectedService: text_(quote.selectedService, 120),
+      customs: Boolean(quote.customs),
+      insurance: Boolean(quote.insurance),
+      declaredValue: number_(quote.declaredValue),
+      temperature: quote.temperature || {},
+      adr: quote.adr || {},
+      price: text_(quote.price, 80),
       breakdown: Array.isArray(quote.breakdown) ? quote.breakdown.slice(0, 20) : []
     }
   };
@@ -119,7 +157,7 @@ function appendOrder_(order) {
     : '';
   const breakdown = q.breakdown.map(line => `${text_(line.label, 100)}: ${text_(line.value, 60)}`).join(' | ');
 
-  sheet.appendRow([
+  const row = [
     order.submittedAt, order.orderId, 'New', order.quoteReference, order.language,
     order.client.company, order.client.name, order.client.phone, order.client.email,
     q.from, q.to, q.distanceKm, q.loadingDate,
@@ -128,7 +166,8 @@ function appendOrder_(order) {
     q.customs ? 'Yes' : 'No', q.insurance ? 'Yes' : 'No', q.declaredValue || '',
     temperature, adr, q.price, breakdown,
     order.source, order.pageUrl
-  ]);
+  ].map(sheetSafe_);
+  sheet.appendRow(row);
 }
 
 function getOrderSheet_() {
@@ -143,24 +182,39 @@ function getOrderSheet_() {
 function ensureHeaders_(sheet) {
   if (sheet.getLastRow() === 0) {
     sheet.appendRow(ORDER_HEADERS);
-    sheet.getRange(1, 1, 1, ORDER_HEADERS.length).setFontWeight('bold').setBackground('#153f37').setFontColor('#ffffff');
+    const header = sheet.getRange(1, 1, 1, ORDER_HEADERS.length);
+    header.setFontWeight('bold').setBackground('#153f37').setFontColor('#ffffff');
     return;
   }
   const current = sheet.getRange(1, 1, 1, ORDER_HEADERS.length).getValues()[0];
-  if (current.join('|') !== ORDER_HEADERS.join('|')) throw new Error('Order sheet headers do not match the backend template.');
+  if (current.join('|') !== ORDER_HEADERS.join('|')) {
+    throw new Error('Order sheet headers do not match the backend template.');
+  }
 }
 
 function findDuplicate_(order) {
   const cache = CacheService.getScriptCache();
   const direct = cache.get(`order:${order.orderId}`);
   if (direct) return direct;
-  return cache.get(`fingerprint:${fingerprint_(order)}`) || '';
+  const fingerprint = fingerprint_(order);
+  return cache.get(`fingerprint:${fingerprint}`) || '';
 }
 
 function rememberOrder_(order) {
   const cache = CacheService.getScriptCache();
+  const fingerprint = fingerprint_(order);
   cache.put(`order:${order.orderId}`, order.orderId, 600);
-  cache.put(`fingerprint:${fingerprint_(order)}`, order.orderId, 120);
+  cache.put(`fingerprint:${fingerprint}`, order.orderId, 120);
+}
+
+function enforceRateLimit_(order) {
+  const cache = CacheService.getScriptCache();
+  const identity = `${order.client.email}|${order.client.phone}`;
+  const bytes = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, identity, Utilities.Charset.UTF_8);
+  const key = `rate:${Utilities.base64EncodeWebSafe(bytes).slice(0, 24)}`;
+  const count = Number(cache.get(key) || 0);
+  if (count >= 5) throw new Error('Too many requests. Please try again later.');
+  cache.put(key, String(count + 1), 600);
 }
 
 function fingerprint_(order) {
@@ -175,12 +229,19 @@ function sendEmailNotification_(order) {
   const q = order.quote;
   const subject = `New logistics order ${order.orderId}: ${q.from} → ${q.to}`;
   const body = [
-    `Order ID: ${order.orderId}`, `Quote: ${order.quoteReference || '—'}`,
+    `Order ID: ${order.orderId}`,
+    `Quote: ${order.quoteReference || '—'}`,
     `Customer: ${order.client.company || '—'} / ${order.client.name}`,
-    `Phone: ${order.client.phone}`, `Email: ${order.client.email}`,
-    `Route: ${q.from} → ${q.to}`, `Distance: ${q.distanceKm} km`,
-    `Loading date: ${q.loadingDate}`, `Cargo: ${q.weightT} t / ${q.pallets} pallets / ${q.volumeM3}`,
-    `Vehicle: ${q.vehicle}`, `Service: ${q.selectedService}`, `Estimated price: ${q.price}`, `Page: ${order.pageUrl}`
+    `Phone: ${order.client.phone}`,
+    `Email: ${order.client.email}`,
+    `Route: ${q.from} → ${q.to}`,
+    `Distance: ${q.distanceKm} km`,
+    `Loading date: ${q.loadingDate}`,
+    `Cargo: ${q.weightT} t / ${q.pallets} pallets / ${q.volumeM3}`,
+    `Vehicle: ${q.vehicle}`,
+    `Service: ${q.selectedService}`,
+    `Estimated price: ${q.price}`,
+    `Page: ${order.pageUrl}`
   ].join('\n');
   MailApp.sendEmail(recipient, subject, body, { replyTo: order.client.email, name: 'ORIENT Logistics website' });
 }
@@ -192,13 +253,17 @@ function sendTelegramNotification_(order) {
   if (!token || !chatId) return;
   const q = order.quote;
   const text = [
-    '🚚 New ORIENT Logistics order', `#${order.orderId}`, `${q.from} → ${q.to}`,
-    `${q.weightT} t · ${q.pallets} pallets · ${q.vehicle}`, `${q.price}`,
+    '🚚 New ORIENT Logistics order',
+    `#${order.orderId}`,
+    `${q.from} → ${q.to}`,
+    `${q.weightT} t · ${q.pallets} pallets · ${q.vehicle}`,
+    `${q.price}`,
     `${order.client.name} · ${order.client.phone}`
   ].join('\n');
   UrlFetchApp.fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: 'post', contentType: 'application/json',
-    payload: JSON.stringify({ chat_id: chatId, text, disable_web_page_preview: true }),
+    method: 'post',
+    contentType: 'application/json',
+    payload: JSON.stringify({ chat_id: chatId, text }),
     muteHttpExceptions: true
   });
 }
@@ -206,6 +271,27 @@ function sendTelegramNotification_(order) {
 function jsonOutput_(data) {
   return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
 }
-function text_(value, maxLength) { return String(value == null ? '' : value).trim().slice(0, maxLength || 500); }
-function number_(value) { const number = Number(value); return Number.isFinite(number) ? number : 0; }
-function safeDate_(value) { const date = value ? new Date(value) : new Date(); return Number.isNaN(date.getTime()) ? new Date() : date; }
+
+function text_(value, maxLength) {
+  return String(value == null ? '' : value)
+    .replace(/[\u0000-\u001F\u007F]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, maxLength || 500);
+}
+
+function sheetSafe_(value) {
+  if (value instanceof Date || typeof value === 'number' || typeof value === 'boolean') return value;
+  const text = String(value == null ? '' : value);
+  return /^[=+\-@]/.test(text) ? `'${text}` : text;
+}
+
+function number_(value) {
+  const number = Number(value);
+  return Number.isFinite(number) ? number : 0;
+}
+
+function safeDate_(value) {
+  const date = value ? new Date(value) : new Date();
+  return Number.isNaN(date.getTime()) ? new Date() : date;
+}
