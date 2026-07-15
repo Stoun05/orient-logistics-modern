@@ -1,0 +1,28 @@
+name: Static checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check frontend JavaScript
+        run: |
+          for file in ./*.js; do
+            echo "Checking $file"
+            node --check "$file"
+          done
+
+      - name: Check Google Apps Script syntax
+        run: |
+          cp order-backend/Code.gs /tmp/orient-order-backend.js
+          node --check /tmp/orient-order-backend.js
