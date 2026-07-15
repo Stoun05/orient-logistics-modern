@@ -1,0 +1,348 @@
+/* ORIENT Logistics — Phase 8 service detail dialogs */
+
+#services .service-card:not(.dark-card) {
+  cursor: pointer;
+}
+
+#services .service-card:not(.dark-card)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid transparent;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: border-color .22s ease, box-shadow .22s ease;
+}
+
+#services .service-card:not(.dark-card):hover::after,
+#services .service-card:not(.dark-card):focus-visible::after {
+  border-color: rgba(240, 141, 69, .42);
+  box-shadow: inset 0 0 0 1px rgba(240, 141, 69, .08);
+}
+
+#services .service-card:not(.dark-card):focus-visible {
+  outline: 3px solid rgba(121, 255, 211, .46);
+  outline-offset: 4px;
+}
+
+.service-dialog {
+  width: min(940px, calc(100% - 32px));
+  max-height: min(860px, calc(100dvh - 36px));
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 30px;
+  background: transparent;
+  color: #153f37;
+  box-shadow: 0 35px 100px rgba(7, 30, 25, .35);
+}
+
+.service-dialog::backdrop {
+  background: rgba(8, 27, 23, .70);
+  backdrop-filter: blur(9px);
+}
+
+.service-dialog[open] {
+  animation: serviceDialogIn .28s cubic-bezier(.2, .8, .2, 1);
+}
+
+.service-dialog-shell {
+  position: relative;
+  max-height: min(860px, calc(100dvh - 36px));
+  overflow-y: auto;
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, .7);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 86% 8%, rgba(121, 255, 211, .22), transparent 27%),
+    linear-gradient(155deg, #ffffff, #f2f8f5);
+  scrollbar-width: thin;
+}
+
+.service-dialog-close {
+  position: sticky;
+  z-index: 4;
+  top: 0;
+  float: right;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  margin: 0 0 -42px auto;
+  border: 1px solid rgba(21, 63, 55, .14);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .9);
+  color: #153f37;
+  box-shadow: 0 8px 24px rgba(14, 32, 29, .12);
+  font: inherit;
+  font-size: 1.65rem;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.service-dialog-close:hover {
+  background: #153f37;
+  color: #ffffff;
+}
+
+.service-dialog-top {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+  padding-right: 52px;
+}
+
+.service-dialog-code {
+  min-height: 118px;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  border-radius: 25px;
+  background:
+    linear-gradient(145deg, rgba(121, 255, 211, .28), rgba(255, 179, 103, .22)),
+    #153f37;
+  color: #ffffff;
+  box-shadow: 0 20px 45px rgba(21, 63, 55, .20);
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-align: center;
+}
+
+.service-dialog-eyebrow {
+  color: #1d7866;
+  font-size: .72rem;
+  font-weight: 850;
+  letter-spacing: .16em;
+}
+
+.service-dialog-title {
+  margin: 7px 0 10px;
+  color: #102822;
+  font-size: clamp(1.7rem, 3.6vw, 2.65rem);
+  line-height: 1.04;
+}
+
+.service-dialog-lead {
+  max-width: 700px;
+  margin: 0;
+  color: #5c706a;
+  font-size: 1rem;
+  line-height: 1.72;
+}
+
+.service-dialog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 25px;
+}
+
+.service-dialog-grid section {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid rgba(21, 63, 55, .11);
+  border-radius: 21px;
+  background: rgba(255, 255, 255, .76);
+}
+
+.service-dialog-grid h4 {
+  margin: 0 0 13px;
+  color: #153f37;
+  font-size: .84rem;
+  letter-spacing: .025em;
+}
+
+.service-dialog-grid ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service-dialog-grid li {
+  position: relative;
+  padding-left: 24px;
+  color: #536963;
+  line-height: 1.48;
+}
+
+.service-dialog-grid li::before {
+  content: "✓";
+  position: absolute;
+  top: 1px;
+  left: 0;
+  width: 17px;
+  height: 17px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(29, 120, 102, .12);
+  color: #1d7866;
+  font-size: .68rem;
+  font-weight: 900;
+}
+
+.service-dialog-timing {
+  background:
+    linear-gradient(145deg, rgba(255, 179, 103, .14), rgba(121, 255, 211, .14)),
+    rgba(255, 255, 255, .78) !important;
+}
+
+.service-dialog-timing p {
+  margin: 0;
+  color: #b45f27;
+  font-size: 1.08rem;
+  font-weight: 850;
+  line-height: 1.5;
+}
+
+.service-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 21px;
+  border-top: 1px solid rgba(21, 63, 55, .10);
+}
+
+.service-dialog-actions .btn {
+  min-height: 48px;
+}
+
+.service-dialog-actions .btn-ghost {
+  border-color: rgba(21, 63, 55, .15);
+  background: rgba(255, 255, 255, .68);
+}
+
+.selected-service-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 15px;
+  padding: 12px 14px;
+  border: 1px solid rgba(29, 120, 102, .15);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(121, 255, 211, .12), rgba(255, 179, 103, .10));
+}
+
+.selected-service-chip span {
+  color: #61756f;
+  font-size: .72rem;
+  font-weight: 750;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.selected-service-chip strong {
+  color: #153f37;
+  font-size: .86rem;
+  text-align: right;
+}
+
+.service-quote-highlight {
+  animation: serviceQuotePulse 1.35s ease;
+}
+
+@keyframes serviceDialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes serviceQuotePulse {
+  0%, 100% { box-shadow: var(--quote-shadow, 0 24px 70px rgba(14, 32, 29, .10)); }
+  35% { box-shadow: 0 0 0 5px rgba(121, 255, 211, .28), 0 28px 80px rgba(14, 32, 29, .16); }
+}
+
+@media (max-width: 720px) {
+  .service-dialog {
+    width: 100%;
+    max-height: calc(100dvh - 12px);
+    margin: auto 0 0;
+    border-radius: 25px 25px 0 0;
+  }
+
+  .service-dialog-shell {
+    max-height: calc(100dvh - 12px);
+    padding: 22px 16px 20px;
+    border-radius: 25px 25px 0 0;
+  }
+
+  .service-dialog-top {
+    grid-template-columns: 78px minmax(0, 1fr);
+    gap: 14px;
+    padding-right: 42px;
+  }
+
+  .service-dialog-code {
+    min-height: 76px;
+    padding: 10px;
+    border-radius: 18px;
+    font-size: .88rem;
+  }
+
+  .service-dialog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-dialog-actions {
+    position: sticky;
+    bottom: -20px;
+    z-index: 3;
+    margin-right: -16px;
+    margin-left: -16px;
+    padding: 14px 16px 20px;
+    background: linear-gradient(to top, #f4f9f6 75%, rgba(244, 249, 246, .86));
+    backdrop-filter: blur(10px);
+  }
+
+  .service-dialog-actions .btn {
+    flex: 1 1 100%;
+  }
+
+  .selected-service-chip {
+    display: block;
+  }
+
+  .selected-service-chip strong {
+    display: block;
+    margin-top: 5px;
+    text-align: left;
+  }
+}
+
+@media (max-width: 430px) {
+  .service-dialog-title {
+    font-size: 1.45rem;
+  }
+
+  .service-dialog-lead {
+    font-size: .92rem;
+  }
+
+  .service-dialog-grid section {
+    padding: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-dialog[open],
+  .service-quote-highlight {
+    animation: none;
+  }
+
+  #services .service-card:not(.dark-card)::after {
+    transition: none;
+  }
+}
