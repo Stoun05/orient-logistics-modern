@@ -17,6 +17,7 @@ https://stoun05.github.io/orient-logistics-modern/
 - Native HTML dialog hyzmat penjireleri
 - Professional ýük we transport baha kalkulýatory
 - A4 çap / PDF baha teklibi
+- Google Apps Script + Google Sheets sargyt backend şablony
 - TK / RU / EN / PL / DE / KA / ES / FR dil çalşygy
 - GitHub Pages
 
@@ -57,26 +58,34 @@ https://stoun05.github.io/orient-logistics-modern/
 - brauzeriň çap penjiresi arkaly A4 görnüşde PDF saklamak
 - teklibi Web Share ýa-da clipboard arkaly paýlaşmak
 - kompaniýanyň e-mail salgysyna taýýar `mailto:` hatyny açmak
+- müşderiniň razylygyny, adyny, telefonyny we e-mailini barlap sargyt ibermek
+- her sargyt üçin `OR-REQ-YYYYMMDD-XXXXXX` belgisi
+- şol bir sargydyň gysga wagtda gaýtadan iberilmeginiň öňüni almak
+- sargyt üstünlikli iberilende aýratyn tassyklama penjiresi
+- Google Sheets-de sargyt setirini döretmek üçin Apps Script backend şablony
+- täze sargyt barada e-mail we optional Telegram habary
+- honeypot, backend validasiýasy, CacheService duplicate barlagy we LockService arkaly ýazgy goragy
+- tokenleri we Sheet ID-ni GitHub-a ýazmazdan Apps Script Properties-de saklamak
 - FAQ akkordeony
 - scroll animasiýalary
 - ýokara dolanmak we jaň düwmesi
 - klawiatura we reduced-motion elýeterlilik sazlamalary
-- telefon, e-mail, ugur, statistika we karta endpointleri üçin merkezi `config.js`
+- telefon, e-mail, ugur, statistika, karta we sargyt endpointi üçin merkezi `config.js`
 - sekiz dil üçin dinamiki SEO title we description
 - Open Graph we Twitter paýlaşyş metadata-lary
 - favicon, web manifest, `robots.txt` we `sitemap.xml`
 - Schema.org `WebSite` gurluşly maglumatlary
 
-## Kompaniýa we karta maglumatlaryny çalyşmak
+## Kompaniýa, karta we sargyt maglumatlaryny çalyşmak
 
-Hakyky telefon, e-mail, ýerleşýän ýer, tracking kody, statistika we karta hyzmatlarynyň endpointlerini diňe `config.js` faýlynda üýtgetmek ýeterlik.
+Hakyky telefon, e-mail, ýerleşýän ýer, tracking kody, statistika, karta hyzmatlary we Google Apps Script `/exec` endpointi `config.js` faýlynda sazlanýar. Telegram tokeni, Google Sheet ID-si we beýleki gizlin maglumatlar frontend konfigurasiýasyna ýazylmaly däl.
 
 ## Faýllar
 
 - `index.html` — sahypanyň gurluşy
 - `styles.css` — esasy dizaýn we responsive görnüş
 - `core.js` — esasy funksional kod we ilkinji 3 dil
-- `config.js` — kompaniýanyň we karta hyzmatlarynyň merkezi maglumatlary
+- `config.js` — kompaniýa, karta we sargyt endpointiniň merkezi maglumatlary
 - `phase2.css` — Phase 2 dizaýn kamilleşdirmeleri
 - `phase2.js` — Phase 2 interaktiwlik arhiwi
 - `phase3.css` — mobil, dil menýusy we elýeterlilik kamilleşdirmeleri
@@ -91,6 +100,11 @@ Hakyky telefon, e-mail, ýerleşýän ýer, tracking kody, statistika we karta h
 - `quote-pro.js` — göwrüm, ulag saýlawy, validasiýa we jikme-jik baha hasaby
 - `quote-proposal.css` — teklip preview-y, mobil dialog we A4 çap stilleri
 - `quote-proposal.js` — müşderi maglumatlary, teklip belgisi, PDF/çap, paýlaşmak we e-mail integrasiýasy
+- `order-intake.css` — sargyt paneli, ýagdaýlar we üstünlik dialogynyň responsive stilleri
+- `order-intake.js` — 8 dilli sargyt validasiýasy, duplicate goragy we backend iberişi
+- `order-backend/Code.gs` — Google Sheet, e-mail we Telegram üçin Apps Script backend
+- `order-backend/appsscript.json` — Apps Script V8 manifesti
+- `order-backend/SETUP.md` — backend-i deploy etmek boýunça ädimme-ädim görkezme
 - `seo.js` — favicon, canonical, sosial metadata we gurluşly maglumatlar
 - `favicon.svg` — brauzer ikonasy
 - `social-preview.svg` — paýlaşyş üçin 1200×630 brend suraty
@@ -99,14 +113,27 @@ Hakyky telefon, e-mail, ýerleşýän ýer, tracking kody, statistika we karta h
 - `sitemap.xml` — Google we beýleki gözleg ulgamlary üçin karta
 - `script.js` — modullary yzygiderli ýükleýän loader
 
+## Sargyt backend-i sazlamak
+
+1. Google Sheet döret.
+2. `order-backend/Code.gs` koduny Google Apps Script proýektine goý.
+3. Apps Script Properties içine `SHEET_ID` goş.
+4. E-mail habary üçin `NOTIFY_EMAIL` goş.
+5. Telegram gerek bolsa `TELEGRAM_BOT_TOKEN` we `TELEGRAM_CHAT_ID` goş.
+6. `setupOrderSheet()` funksiýasyny bir gezek işlet.
+7. Web app hökmünde deploy edip, `/exec` URL-ni al.
+8. Şol URL-ni `config.js → orderIntake.endpoint` içine goý.
+
+Doly görkezme: `order-backend/SETUP.md`.
+
 ## Karta hyzmatlary barada bellik
 
 Şäher gözlegi diňe ulanyjy `Gözle` düwmesine basanda ýerine ýetirilýär; autocomplete ýok. Gözlegler ýerli keşde saklanýar we soraglaryň arasynda azyndan 1,1 sekunt goýulýar. Bu demo az ulanyjyly GitHub Pages sahypasy üçin niýetlenendir. Köp ulanyjyly ýa-da kommersiýa önümçilikde geocoding we routing üçin aýratyn tölegli üpjün ediji ýa-da öz backend/proxy hyzmatyňyz gerek.
 
-## Baha kalkulýatory we PDF teklibi barada bellik
+## Baha kalkulýatory, PDF teklibi we sargyt barada bellik
 
 Kalkulýator ýol, ulag, agram, göwrüm, palet sany, hyzmat görnüşi we goşmaça hyzmatlar boýunça frontend formulasy bilen takmynan aralyk berýär. Bu täjirçilik tarifi däl. Hakyky ýol tölegleri, serhet, gümrük, rugsatlar we bazar nyrhy logist tarapyndan barlanandan soň takyk teklip tassyklanmalydyr.
 
-`PDF / Çap` düwmesi brauzeriň çap penjiresini açýar. Ulanyjy şol ýerden `Save as PDF` saýlap, teklibi A4 PDF görnüşinde saklap biler. E-mail düwmesi `config.js` içindäki demo e-mail salgysyna taýýar hat açýar; önümçilikde hakyky kompaniýa salgysy bilen çalşylmaly.
+`PDF / Çap` düwmesi brauzeriň çap penjiresini açýar. Ulanyjy şol ýerden `Save as PDF` saýlap, teklibi A4 PDF görnüşinde saklap biler.
 
-Tracking we aragatnaşyk formasy hem häzirki wagtda frontend demo görnüşindedir.
+Sargyt paneli diňe `config.js` içindäki Apps Script endpointi doldurylandan we backend deploy edilenden soň Google Sheets/e-mail/Telegram bilen hakyky işleýär. Endpoint boş bolsa ulgam üstünlik görkezmeýär, sazlama gerekdigini açyk aýdýar. Tracking we esasy aragatnaşyk formasy häzirki wagtda frontend demo görnüşindedir.
