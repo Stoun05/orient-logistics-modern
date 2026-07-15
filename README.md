@@ -16,6 +16,7 @@ https://stoun05.github.io/orient-logistics-modern/
 - OSRM hakyky awtoulag marşruty
 - Native HTML dialog hyzmat penjireleri
 - Professional ýük we transport baha kalkulýatory
+- A4 çap / PDF baha teklibi
 - TK / RU / EN / PL / DE / KA / ES / FR dil çalşygy
 - GitHub Pages
 
@@ -49,6 +50,13 @@ https://stoun05.github.io/orient-logistics-modern/
 - ADR üçin UN belgisi, klass we Packing Group maglumatlary
 - esasy transport, ekspress, ADR, temperatura, gümrük we ätiýaçlandyryş boýunça bahanyň bölünişi
 - sekiz dilde professional forma validasiýasy we düşnükli duýduryşlar
+- müşderi, kompaniýa, telefon we e-mail maglumatlaryny teklibe goşmak
+- her täze hasap üçin aýratyn `OR-YYYYMMDD-XXXX` teklip belgisi
+- teklibiň döredilen senesi we 7 günlük güýjünde bolýan möhleti
+- marşrut, ýük, ulag, hyzmatlar we bahanyň bölünişi bilen professional teklip preview-y
+- brauzeriň çap penjiresi arkaly A4 görnüşde PDF saklamak
+- teklibi Web Share ýa-da clipboard arkaly paýlaşmak
+- kompaniýanyň e-mail salgysyna taýýar `mailto:` hatyny açmak
 - FAQ akkordeony
 - scroll animasiýalary
 - ýokara dolanmak we jaň düwmesi
@@ -81,6 +89,8 @@ Hakyky telefon, e-mail, ýerleşýän ýer, tracking kody, statistika we karta h
 - `service-details.js` — 8 dilli hyzmat maglumatlary, dialog we kalkulýator integrasiýasy
 - `quote-pro.css` — professional ýük formasy, bahanyň bölünişi we responsive stiller
 - `quote-pro.js` — göwrüm, ulag saýlawy, validasiýa we jikme-jik baha hasaby
+- `quote-proposal.css` — teklip preview-y, mobil dialog we A4 çap stilleri
+- `quote-proposal.js` — müşderi maglumatlary, teklip belgisi, PDF/çap, paýlaşmak we e-mail integrasiýasy
 - `seo.js` — favicon, canonical, sosial metadata we gurluşly maglumatlar
 - `favicon.svg` — brauzer ikonasy
 - `social-preview.svg` — paýlaşyş üçin 1200×630 brend suraty
@@ -93,8 +103,10 @@ Hakyky telefon, e-mail, ýerleşýän ýer, tracking kody, statistika we karta h
 
 Şäher gözlegi diňe ulanyjy `Gözle` düwmesine basanda ýerine ýetirilýär; autocomplete ýok. Gözlegler ýerli keşde saklanýar we soraglaryň arasynda azyndan 1,1 sekunt goýulýar. Bu demo az ulanyjyly GitHub Pages sahypasy üçin niýetlenendir. Köp ulanyjyly ýa-da kommersiýa önümçilikde geocoding we routing üçin aýratyn tölegli üpjün ediji ýa-da öz backend/proxy hyzmatyňyz gerek.
 
-## Baha kalkulýatory barada bellik
+## Baha kalkulýatory we PDF teklibi barada bellik
 
 Kalkulýator ýol, ulag, agram, göwrüm, palet sany, hyzmat görnüşi we goşmaça hyzmatlar boýunça frontend formulasy bilen takmynan aralyk berýär. Bu täjirçilik tarifi däl. Hakyky ýol tölegleri, serhet, gümrük, rugsatlar we bazar nyrhy logist tarapyndan barlanandan soň takyk teklip tassyklanmalydyr.
+
+`PDF / Çap` düwmesi brauzeriň çap penjiresini açýar. Ulanyjy şol ýerden `Save as PDF` saýlap, teklibi A4 PDF görnüşinde saklap biler. E-mail düwmesi `config.js` içindäki demo e-mail salgysyna taýýar hat açýar; önümçilikde hakyky kompaniýa salgysy bilen çalşylmaly.
 
 Tracking we aragatnaşyk formasy hem häzirki wagtda frontend demo görnüşindedir.
