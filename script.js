@@ -21,6 +21,7 @@
   loadStyle("service-details.css");
   loadStyle("quote-pro.css");
   loadStyle("quote-proposal.css");
+  loadStyle("order-intake.css");
 
   loadScript("config.js")
     .then(() => loadScript("core.js"))
@@ -30,5 +31,6 @@
     .then(() => loadScript("service-details.js"))
     .then(() => loadScript("quote-pro.js"))
     .then(() => loadScript("quote-proposal.js"))
+    .then(() => loadScript("order-intake.js"))
     .catch(error => console.error("ORIENT UI load error:", error));
 })();

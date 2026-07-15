@@ -1,6 +1,6 @@
 /**
  * ORIENT Logistics — merkezi konfigurasiýa.
- * Hakyky kompaniýa maglumatlaryny we karta hyzmatlaryny soň diňe şu faýlda çalşyp bolýar.
+ * Hakyky kompaniýa maglumatlaryny, karta hyzmatlaryny we sargyt endpointini soň diňe şu faýlda çalşyp bolýar.
  */
 window.ORIENT_CONFIG = {
   companyName: "ORIENT Logistics",
@@ -21,6 +21,14 @@ window.ORIENT_CONFIG = {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     geocodeIntervalMs: 1100,
     cacheDays: 7
+  },
+  orderIntake: {
+    // Google Apps Script web app deploy edilenden soň /exec URL-ni şu ýere goýuň.
+    endpoint: "",
+    timeoutMs: 15000,
+    duplicateWindowMs: 120000,
+    // Diňe CORS sebäpli JSON jogaby okalmaýan ýagdaýda açmak maslahat berilýär.
+    allowOpaqueFallback: false
   },
   stats: {
     support: "24/7",

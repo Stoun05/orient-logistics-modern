@@ -1,0 +1,46 @@
+/* ORIENT Logistics — Phase 11 order intake */
+.order-intake-panel {
+  margin-top: 18px;
+  padding: 22px;
+  border: 1px solid rgba(21, 63, 55, .14);
+  border-radius: 22px;
+  background: radial-gradient(circle at 92% 8%, rgba(121, 255, 211, .18), transparent 31%), linear-gradient(145deg, #f9fcfb, #eef6f2);
+  transition: border-color .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+.order-intake-panel.has-error { border-color: rgba(190, 55, 55, .35); box-shadow: 0 0 0 4px rgba(190, 55, 55, .06); }
+.order-intake-panel.is-sending { opacity: .78; }
+.order-intake-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px; align-items: start; }
+.order-intake-head > div > span { display: block; margin-bottom: 7px; color: #1d7866; font-size: .68rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+.order-intake-head h3 { margin: 0; color: #102822; font-size: clamp(1.18rem, 2.2vw, 1.5rem); }
+.order-intake-head p { max-width: 660px; margin: 8px 0 0; color: #62756f; font-size: .88rem; line-height: 1.62; }
+.order-intake-shield { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 16px; background: #153f37; color: #79ffd3; box-shadow: 0 13px 30px rgba(21, 63, 55, .18); font-weight: 900; }
+.order-intake-consent { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 11px; align-items: start; margin: 18px 0; padding: 13px 14px; border: 1px solid rgba(21, 63, 55, .1); border-radius: 15px; background: rgba(255, 255, 255, .65); cursor: pointer; }
+.order-intake-consent input { width: 18px; height: 18px; margin-top: 1px; accent-color: #1d7866; }
+.order-intake-consent span { color: #526a63; font-size: .81rem; line-height: 1.48; }
+.order-intake-actions { display: flex; align-items: center; gap: 14px; }
+.order-intake-actions .btn { min-width: 190px; min-height: 50px; }
+.order-intake-actions small { color: #758780; font-size: .7rem; line-height: 1.42; }
+.order-intake-status { min-height: 1.3em; margin: 12px 0 0; color: #a33d3d; font-size: .79rem; font-weight: 750; line-height: 1.5; }
+.order-intake-honeypot { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; }
+.order-success-dialog { width: min(520px, calc(100% - 28px)); margin: auto; padding: 0; border: 0; border-radius: 28px; background: transparent; color: #102822; box-shadow: 0 30px 90px rgba(8, 27, 23, .35); }
+.order-success-dialog::backdrop { background: rgba(8, 27, 23, .72); backdrop-filter: blur(8px); }
+.order-success-shell { position: relative; padding: 34px; border-radius: 28px; background: radial-gradient(circle at 85% 5%, rgba(121, 255, 211, .23), transparent 31%), #fff; text-align: center; }
+.order-success-close { position: absolute; top: 15px; right: 15px; width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid rgba(21, 63, 55, .12); border-radius: 50%; background: #fff; color: #153f37; font: inherit; font-size: 1.45rem; cursor: pointer; }
+.order-success-icon { width: 70px; height: 70px; display: grid; place-items: center; margin: 5px auto 18px; border-radius: 23px; background: #153f37; color: #79ffd3; box-shadow: 0 18px 40px rgba(21, 63, 55, .2); font-size: 1.75rem; font-weight: 900; }
+#orderSuccessEyebrow { display: block; color: #1d7866; font-size: .67rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.order-success-shell h3 { margin: 8px 0 10px; font-size: clamp(1.55rem, 4vw, 2rem); }
+.order-success-shell > p { margin: 0 auto; color: #60736d; line-height: 1.62; }
+.order-success-reference { margin: 22px 0; padding: 15px; border: 1px dashed rgba(21, 63, 55, .25); border-radius: 16px; background: #f2f8f5; }
+.order-success-reference span { display: block; margin-bottom: 5px; color: #71837d; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.order-success-reference strong { color: #153f37; font-size: 1.04rem; letter-spacing: .035em; }
+@media (max-width: 600px) {
+  .order-intake-panel { padding: 18px; }
+  .order-intake-actions { align-items: stretch; flex-direction: column; }
+  .order-intake-actions .btn { width: 100%; }
+  .order-success-dialog { width: 100%; max-width: none; margin: auto 0 0; border-radius: 25px 25px 0 0; }
+  .order-success-shell { padding: 31px 20px 24px; border-radius: 25px 25px 0 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .order-success-dialog[open] { animation: orderSuccessIn .26s ease-out; }
+  @keyframes orderSuccessIn { from { opacity: 0; transform: translateY(18px) scale(.98); } to { opacity: 1; transform: none; } }
+}
