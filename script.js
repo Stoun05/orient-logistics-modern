@@ -19,6 +19,7 @@
   loadStyle("route-map.css");
   loadStyle("route-search.css");
   loadStyle("service-details.css");
+  loadStyle("quote-pro.css");
 
   loadScript("config.js")
     .then(() => loadScript("core.js"))
@@ -26,5 +27,6 @@
     .then(() => loadScript("seo.js"))
     .then(() => loadScript("route-map.js"))
     .then(() => loadScript("service-details.js"))
+    .then(() => loadScript("quote-pro.js"))
     .catch(error => console.error("ORIENT UI load error:", error));
 })();
